@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  clock:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      VIRTUAL_HOST: clock.vvil.jp
+      VIRTUAL_PORT: 80
+      VIRTUAL_PROTO: http
+      LETSENCRYPT_HOST: clock.vvil.jp
+      LETSENCRYPT_EMAIL: ryoma@vvil.jp
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"
+networks:
+  default:
+    external:
+      name: nginx-proxy_default
